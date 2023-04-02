@@ -1,3 +1,4 @@
+import 'package:auth_app/presentation/widgets/global_input.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,7 +13,6 @@ class _HomePageState extends State<HomePage> {
   late FocusNode emailFocus;
   RegExp authRegex =
       RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
-  bool emailRegex = true;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -42,35 +42,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextFormField(
-                    controller: emailController,
-                    focusNode: emailFocus,
-                    onChanged: (value) {
-                      if (value.contains(authRegex)) {
-                        emailRegex = true;
-                      } else {
-                        emailRegex = false;
-                      }
-                      setState(() {});
-                    },
-                    validator: (value) {
-                      if (!authRegex.hasMatch(value.toString())) {
-                        return 'Fill email field';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        labelText: 'Email',
-                        prefixIcon: const Icon(Icons.email_rounded),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16)),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: emailRegex
-                              ? const BorderSide(color: Colors.blue)
-                              : const BorderSide(color: Colors.red),
-                        )),
-                  ),
+                  GlobalInput(controller: emailController, authRegex: authRegex, emailFocus: emailFocus,),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {

@@ -1,4 +1,5 @@
-import 'package:auth_app/presentation/widgets/global_input.dart';
+import 'package:auth_app/presentation/widgets/global_input_email.dart';
+import 'package:auth_app/presentation/widgets/global_input_password.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,7 +11,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late TextEditingController emailController;
+  late TextEditingController passwordController;
   late FocusNode emailFocus;
+  late FocusNode passwordFocus;
   RegExp authRegex =
       RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -19,14 +22,19 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     emailController = TextEditingController();
+    passwordController = TextEditingController();
     emailFocus = FocusNode();
+    passwordFocus = FocusNode();
   }
 
   @override
   void dispose() {
     super.dispose();
     emailController.dispose();
+    passwordController.dispose();
     emailFocus.dispose();
+    passwordFocus.dispose();
+  
   }
 
   @override
@@ -42,7 +50,9 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  GlobalInput(controller: emailController, authRegex: authRegex, emailFocus: emailFocus,),
+                  GlobalInputEmail(controller: emailController, authRegex: authRegex, emailFocus: emailFocus,),
+                  const SizedBox(height: 12),
+                  GlobalInputPassword(controller: passwordController, passwordFocus: passwordFocus),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {

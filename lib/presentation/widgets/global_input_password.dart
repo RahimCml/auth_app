@@ -23,12 +23,15 @@ class _GlobalInputPasswordState extends State<GlobalInputPassword> {
         return TextFormField(
           controller: widget.controller,
           focusNode: widget.passwordFocus,
+          obscureText: loginProvider.isSecure,
           onChanged: (value) {
             setState(() {});
           },
           decoration: InputDecoration(
               labelText: 'Password',
-              suffixIcon: const Icon(Icons.remove_red_eye),
+              suffixIcon: GestureDetector( onTap: () {
+                loginProvider.showPassword();
+              }, child: loginProvider.isSecure == true ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility)),
               enabledBorder:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
               focusedBorder: OutlineInputBorder(
